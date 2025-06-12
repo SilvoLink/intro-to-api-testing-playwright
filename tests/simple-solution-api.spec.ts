@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { StatusCodes } from 'http-status-codes'
+import { OrderDto } from './dto/order-dto'
 
 test('get order with correct id should receive code 200', async ({ request }) => {
   // Build and send a GET request to the server
@@ -22,15 +23,7 @@ test('get order with incorrect id should receive code 400', async ({ request }) 
 })
 
 test('post order with correct data should receive code 200', async ({ request }) => {
-  // prepare request body
-  const requestBody = {
-    status: 'OPEN',
-    courierId: 0,
-    customerName: 'string',
-    customerPhone: 'string',
-    comment: 'string',
-    id: 0,
-  }
+  const requestBody = new OrderDto('OPEN', 0, 'My Name', '5245587', 'No comment', 0)
   // Send a POST request to the server
   const response = await request.post('https://backend.tallinn-learning.ee/test-orders', {
     data: requestBody,
@@ -42,15 +35,7 @@ test('post order with correct data should receive code 200', async ({ request })
 })
 
 test('post order with incorrect payload should receive code 400', async ({ request }) => {
-  // prepare request body
-  const requestBody = {
-    status: 'CLOSED',
-    courierId: 0,
-    customerName: 'string',
-    customerPhone: 'string',
-    comment: 'string',
-    id: 0,
-  }
+  const requestBody = new OrderDto('BLOCKED', 0, 'My Name', '5245587', 'No comment', 0)
   // Send a POST request to the server
   const response = await request.post('https://backend.tallinn-learning.ee/test-orders', {
     data: requestBody,
