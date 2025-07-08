@@ -8,6 +8,6 @@ export class LoginDto {
   }
 
   static createLoginWithCorrectData(): LoginDto {
-      return new LoginDto(process.env.USER || '', process.env.PASSWORD || '')
+    return new LoginDto(process.env.USER || '', process.env.PASSWORD || '')
   }
 }
